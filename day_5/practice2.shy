@@ -1,0 +1,20 @@
+
+#!/bin/bash
+
+n=101
+read -p "enter range of number" range
+while [ $n -le $range ]  
+do
+h=$(($n/100))
+temp=$(($n/10))
+t=$(($temp%10))
+o=$(($n%10))
+s=$(($h**3+$t**3+$o**3))
+if [ $s == $n ]
+then
+echo $s "is armstrong"
+else 
+ $pass
+fi  
+((n++))
+done

@@ -1,0 +1,112 @@
+#!/bin/bash 
+check()
+{
+    echo $(($1%2))
+}
+
+gen() # this generates the prime numbers
+{
+    x[0]=2
+    for ((i=2;$((i*i))<=$1;i++))
+    do
+        status=0
+        for j in ${x[@]}
+        do
+        
+            if [[ $(($i%$j)) == 0 ]]
+            then
+                status=1
+                break
+            fi
+        done
+        if [[ $status == 0 ]]
+        then
+            x[${#x[@]}]=$i
+        fi
+    done
+    echo ${x[@]}
+}
+max()
+{
+    if [[ $1 -gt $2 ]]
+    then
+        echo $1
+    else
+        echo $2
+    fi
+}
+
+avg()
+{
+    ar=$1
+    n=0
+    s=0
+    for i in ${ar[@]}
+    do
+        s=$(($s+$i))
+        ((n++))
+    done
+    if [[ $n == 0 ]]
+    then 
+        echo "list of numbers in the given question is empty"
+    else
+        av=$(echo "scale=2;$s/$n" | bc)
+        echo $av
+    fi
+}
+
+for ((i=0;i<15;i++))
+do
+    a[$i]=$RANDOM
+done
+echo "**"${a[@]}
+declare -a even
+declare -a odd
+for i in ${a[@]}
+do
+    if [[ $(check $i) == 0 ]]
+    then
+        even[${#even[@]}]=$i
+    else
+        odd[${#odd[@]}]=$i
+    fi
+done
+echo "odd is "${odd[@]}
+echo "even is "${even[@]}
+
+mx=${odd[0]}
+for i in ${odd[@]}
+do
+    mx=$(max $i $mx)
+done
+echo -e "max val in odd list is " $mx "and we will generate primelist till here\n"
+temp=$(gen $mx)
+echo "list of default prime no to check  " $temp
+declare -a prime
+for i in ${odd[@]}
+do
+    for j in ${temp[@]}
+    do
+    if [[ $i == $j ]]
+    then
+        prime[${#prime[@]}]=$i
+    fi
+    done
+done
+echo ${prime[@]}
+
+echo -e "\nprime nos avg is "$(avg ${prime[@]})
+echo -e "\nodd nos avg is "$(avg ${odd[@]})
+echo -e "\neven nos avg is "$(avg ${even[@]})
+
+
+
+
+
+
+
+
+
+
+
+

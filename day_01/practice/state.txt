@@ -1,0 +1,7 @@
+state,name,marks
+Andhra Pradesh,ravi,58
+Arunachal Pradesh,rani,56
+Assam,mahesh,60
+Bihar,bhuvan,45
+Chhattisgarh,shalani,80
+
